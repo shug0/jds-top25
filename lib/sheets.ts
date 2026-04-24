@@ -7,7 +7,7 @@ const TIDY_GID = "224056819"
 
 const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${TIDY_GID}`
 
-export const REVALIDATE = 3600
+export const REVALIDATE = 86400
 
 async function fetchCsv(): Promise<RawEntry[]> {
   const res = await fetch(CSV_URL, { next: { revalidate: REVALIDATE } })

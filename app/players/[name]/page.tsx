@@ -3,9 +3,15 @@ import { notFound } from "next/navigation"
 import { getEntries } from "@/lib/sheets"
 import { computeGameScores } from "@/lib/scoring"
 
-export const revalidate = 3600
+export const revalidate = 86400
 
 type Props = { params: Promise<{ name: string }> }
+
+export async function generateStaticParams() {
+  const entries = await getEntries()
+  const players = [...new Set(entries.map((e) => e.player))]
+  return players.map((player) => ({ name: encodeURIComponent(player) }))
+}
 
 export default async function PlayerPage({ params }: Props) {
   const { name } = await params
