@@ -6,7 +6,7 @@ import { computeGameScores, getPlayerTops } from "@/lib/scoring"
 export async function generateStaticParams() {
   const entries = await getEntries()
   const players = getPlayerTops(entries)
-  return players.map((p) => ({ name: encodeURIComponent(p.player) }))
+  return players.map((p) => ({ name: p.player }))
 }
 
 type Props = { params: Promise<{ name: string }> }
