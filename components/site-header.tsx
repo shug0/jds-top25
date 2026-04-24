@@ -17,23 +17,24 @@ export async function SiteHeader() {
       borderBottom: "1px solid var(--color-border)",
     }}>
       <div className="header-shell">
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", fontWeight: 700, fontStyle: "italic", color: "var(--color-text)" }}>
-            JDS{" "}
+        <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.35em", lineHeight: 1 }}>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", fontWeight: 700, fontStyle: "italic", color: "var(--color-text)" }}>
+              JDS
+            </span>
             <span
               aria-hidden="true"
               style={{
-                display: "inline-block",
-                width: "0.32em",
-                height: "0.32em",
+                width: "0.3em",
+                height: "0.3em",
                 borderRadius: "999px",
                 background: "var(--color-accent)",
-                verticalAlign: "middle",
-                margin: "0 0.35em",
-                transform: "translateY(-0.04em)",
               }}
             />
-            {" "}TOP 25
+            <span style={{ fontFamily: "var(--font-sans)", fontSize: "1rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-text)" }}>
+              TOP 25
+            </span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "var(--color-text-muted)", transform: "translateY(0.04em)" }}>
+            de la commu
           </span>
         </Link>
         <p style={{ fontSize: "0.8rem", color: "var(--color-label)" }}>

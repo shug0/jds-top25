@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "JDS - TOP 25",
+  title: "JDS . Le Top 25 de la commu",
   description: "Le classement communautaire des jeux préférés du groupe",
 }
 
