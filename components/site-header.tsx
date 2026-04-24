@@ -18,7 +18,7 @@ export async function SiteHeader() {
     }}>
       <div className="header-shell">
         <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.35em", lineHeight: 1 }}>
-            <span style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", fontWeight: 700, fontStyle: "italic", color: "var(--color-text)" }}>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 700, fontStyle: "italic", color: "var(--color-text)" }}>
               JDS
             </span>
             <span
