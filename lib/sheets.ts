@@ -1,5 +1,5 @@
 import Papa from "papaparse"
-import { unstable_cache } from "next/cache"
+import { cacheLife } from "next/cache"
 import type { RawEntry, Entry } from "./types"
 import { buildFuseIndex, normalizeTitle } from "./fuzzy"
 
@@ -24,7 +24,10 @@ async function fetchCsv(): Promise<RawEntry[]> {
   return data
 }
 
-async function loadEntries(): Promise<Entry[]> {
+export async function getEntries(): Promise<Entry[]> {
+  "use cache"
+  cacheLife("days")
+
   const raw = await fetchCsv()
 
   const rawTitles = raw.flatMap((r) => (r.titre_jeu?.trim() ? [r.titre_jeu.trim()] : []))
@@ -44,7 +47,3 @@ async function loadEntries(): Promise<Entry[]> {
     })
     .filter((e): e is Entry => e !== null)
 }
-
-export const getEntries = unstable_cache(loadEntries, ["entries-from-sheet"], {
-  revalidate: REVALIDATE,
-})

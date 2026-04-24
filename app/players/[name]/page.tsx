@@ -1,9 +1,13 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getEntries } from "@/lib/sheets"
-import { computeGameScores } from "@/lib/scoring"
+import { computeGameScores, getPlayerTops } from "@/lib/scoring"
 
-export const revalidate = 86400
+export async function generateStaticParams() {
+  const entries = await getEntries()
+  const players = getPlayerTops(entries)
+  return players.map((p) => ({ name: encodeURIComponent(p.player) }))
+}
 
 type Props = { params: Promise<{ name: string }> }
 

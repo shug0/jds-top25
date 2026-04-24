@@ -3,19 +3,17 @@ import { notFound } from "next/navigation"
 import { getEntries } from "@/lib/sheets"
 import { computeGameScores } from "@/lib/scoring"
 
-export const revalidate = 86400
+export async function generateStaticParams() {
+  const entries = await getEntries()
+  const scores = computeGameScores(entries)
+  return scores.map((s) => ({ slug: encodeURIComponent(s.game) }))
+}
 
 type Props = { params: Promise<{ slug: string }> }
 
 export default async function GamePage({ params }: Props) {
   const { slug } = await params
   const game = decodeURIComponent(slug)
-  const generatedAt = new Date()
-  const versionDate = new Intl.DateTimeFormat("fr-FR", {
-    dateStyle: "long",
-    timeStyle: "short",
-    timeZone: "Europe/Paris",
-  }).format(generatedAt)
 
   const entries = await getEntries()
   const scores = computeGameScores(entries)
@@ -37,9 +35,6 @@ export default async function GamePage({ params }: Props) {
         <div style={{ marginTop: "0", marginBottom: "40px" }} className="fade-up">
           <p style={{ fontSize: "12px", color: "var(--color-label)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
             #{globalRank} au classement
-          </p>
-          <p style={{ fontSize: "12px", color: "var(--color-label)", marginBottom: "10px" }}>
-            Version du {versionDate}
           </p>
           <h1 style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.8rem, 3vw, 2.8rem)", fontWeight: 700, color: "var(--color-text)", marginBottom: "32px", lineHeight: 1.1 }}>
             {game}
