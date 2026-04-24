@@ -34,3 +34,129 @@ body {
 
 .game-card { transition: background 0.15s; }
 .game-card:hover { background: var(--color-card-hover) !important; }
+
+.page-shell {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 48px;
+}
+
+.header-shell {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.masonry-top {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.masonry-col-2,
+.masonry-col-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.masonry-mid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.masonry-tail {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 32px;
+  margin-top: 20px;
+}
+
+.detail-page-shell {
+  min-height: 100vh;
+  padding: 48px;
+}
+
+.detail-page-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.game-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.game-player-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+@media (max-width: 1200px) {
+  .masonry-top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .masonry-col-3 {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .masonry-col-3 > .fade-up:first-child {
+    flex: 0 0 100%;
+  }
+  .masonry-col-3 > .fade-up:nth-child(2),
+  .masonry-col-3 > .fade-up:nth-child(3) {
+    flex: 1 1 calc(50% - 5px);
+  }
+  .masonry-mid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .masonry-tail { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .page-shell { padding: 28px 24px; }
+  .header-shell { padding: 0 24px; }
+  .detail-page-shell { padding: 28px 24px; }
+  .masonry-mid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .masonry-tail { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .game-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .page-shell { padding: 20px 14px; }
+  .detail-page-shell { padding: 20px 14px; }
+  .header-shell {
+    padding: 0 14px;
+    height: auto;
+    min-height: 52px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .masonry-top,
+  .masonry-mid,
+  .masonry-tail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .masonry-col-3 { flex-direction: column; }
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .game-metrics-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .masonry-top,
+  .masonry-mid,
+  .masonry-tail { grid-template-columns: 1fr; }
+}

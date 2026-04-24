@@ -26,8 +26,8 @@ export default async function GamePage({ params }: Props) {
   const avgRank = (gameEntries.reduce((s, e) => s + e.rank, 0) / gameEntries.length).toFixed(1)
 
   return (
-    <main style={{ minHeight: "100vh", padding: "48px" }}>
-      <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+    <main className="detail-page-shell">
+      <div className="detail-page-content">
         <div style={{ marginTop: "0", marginBottom: "40px" }} className="fade-up">
           <p style={{ fontSize: "12px", color: "var(--color-label)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
             #{globalRank} au classement
@@ -36,7 +36,7 @@ export default async function GamePage({ params }: Props) {
             {game}
           </h1>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
+          <div className="game-metrics-grid">
             {[
               { label: "Score Borda", value: score.borda },
               { label: "Mentions", value: score.mentions },
@@ -63,7 +63,7 @@ export default async function GamePage({ params }: Props) {
                     {group.label}
                   </p>
                 </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                <div className="game-player-tags">
                   {group.players.map((e) => (
                     <Link
                       key={`${group.label}-${e.player}`}

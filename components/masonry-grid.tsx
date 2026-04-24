@@ -34,7 +34,7 @@ function HeroCard({ score }: { score: GameScore }) {
         </h2>
         <p style={{ ...s.rank, fontSize: "clamp(2rem, 3vw, 3rem)", marginLeft: "16px" }}>#1</p>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: "32px", marginTop: "20px" }}>
+      <div className="hero-stats">
         <Stat label="Score Borda" value={score.borda} valueSize="1.5rem" />
         {score.top1Count > 0 && <Stat label="Votes #1" value={score.top1Count} valueSize="1.5rem" />}
         <Stat label="Dans top 5" value={score.top5Count} valueSize="1.5rem" />
@@ -99,17 +99,17 @@ export function MasonryGrid({ scores }: Props) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
+      <div className="masonry-top">
         <div className="fade-up" style={{ ...s.border, ...delay(0) }}>
           {first && <HeroCard score={first} />}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div className="masonry-col-2">
           {second && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(1) }}><SideCard score={second} rank={2} /></div>}
           {third && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(2) }}><SideCard score={third} rank={3} /></div>}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div className="masonry-col-3">
           {fourth && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(3) }}><SideCard score={fourth} rank={4} /></div>}
           {fifth && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(4) }}><SideCard score={fifth} rank={5} /></div>}
           {sixth && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(5) }}><SideCard score={sixth} rank={6} /></div>}
@@ -117,7 +117,7 @@ export function MasonryGrid({ scores }: Props) {
       </div>
 
       {mid.length > 0 && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px" }}>
+        <div className="masonry-mid">
           {mid.map((score, i) => (
             <div key={score.game} className="fade-up" style={{ ...s.border, ...delay(6 + i) }}>
               <SmallCard score={score} rank={i + 7} />
@@ -127,7 +127,7 @@ export function MasonryGrid({ scores }: Props) {
       )}
 
       {tail.length > 0 && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "10px" }}>
+        <div className="masonry-tail">
           {tail.map((score, i) => (
             <div key={score.game} className="fade-up" style={{ ...s.border, ...delay(10 + i) }}>
               <TinyCard score={score} rank={i + 11} />

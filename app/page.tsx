@@ -9,7 +9,7 @@ export default async function HomePage() {
   const scores = computeGameScores(entries)
 
   return (
-    <main style={{ maxWidth: "1400px", margin: "0 auto", padding: "40px 48px" }}>
+    <main className="page-shell">
       <div className="fade-up">
         <MasonryGrid scores={scores.slice(0, 25)} />
       </div>
@@ -23,6 +23,15 @@ export default async function HomePage() {
           style={{ textDecoration: "underline", textUnderlineOffset: "2px", color: "var(--color-text-muted)" }}
         >
           Google Sheets communautaire
+        </a>
+        {" "}· Par la commu de{" "}
+        <a
+          href="https://www.youtube.com/@FirstPlayerFr"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "underline", textUnderlineOffset: "2px", color: "var(--color-text-muted)" }}
+        >
+          First Player
         </a>
         {" "}· Rafraîchi toutes les heures
       </footer>
