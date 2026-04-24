@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Lora', serif;
+  --color-bg: #0f0f0f;
+  --color-text: #f0f0f0;
+  --color-text-muted: rgba(240, 240, 240, 0.55);
+  --color-text-faint: rgba(240, 240, 240, 0.35);
+  --color-accent: #4ade80;
+  --color-card-bg: #1a1a1a;
+  --color-card-hover: #222222;
+  --color-border: #2a2a2a;
+  --color-label: #888;
+  --color-rank: var(--color-accent);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.5s ease both; }
+
+.game-card { transition: background 0.15s; }
+.game-card:hover { background: var(--color-card-hover) !important; }
