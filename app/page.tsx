@@ -33,7 +33,7 @@ export default async function HomePage() {
         >
           First Player
         </a>
-        {" "}· Rafraîchi toutes les heures
+        {" "}· Rafraîchi tous les jours
       </footer>
     </main>
   )
