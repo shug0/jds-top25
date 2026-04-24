@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { getEntries } from "@/lib/sheets"
 import { getPlayerTops } from "@/lib/scoring"
+import { slugify } from "@/lib/utils"
 
 export default async function PlayersPage() {
   const entries = await getEntries()
@@ -27,7 +28,7 @@ export default async function PlayersPage() {
           {players.map((p, i) => (
             <Link
               key={p.player}
-              href={`/players/${encodeURIComponent(p.player)}`}
+              href={`/players/${slugify(p.player)}`}
               className="game-card"
               style={{ display: "grid", gridTemplateColumns: "1fr 5rem", alignItems: "center", padding: "12px 16px", borderBottom: "1px solid var(--color-border)", textDecoration: "none" }}
             >

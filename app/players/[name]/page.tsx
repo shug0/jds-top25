@@ -2,26 +2,28 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getEntries } from "@/lib/sheets"
 import { computeGameScores, getPlayerTops } from "@/lib/scoring"
+import { slugify } from "@/lib/utils"
 
 export async function generateStaticParams() {
   const entries = await getEntries()
   const players = getPlayerTops(entries)
-  return players.map((p) => ({ name: p.player }))
+  return players.map((p) => ({ name: slugify(p.player) }))
 }
 
 type Props = { params: Promise<{ name: string }> }
 
 export default async function PlayerPage({ params }: Props) {
   const { name } = await params
-  const player = decodeURIComponent(name)
 
   const entries = await getEntries()
-  const playerEntries = entries.filter((e) => e.player === player).sort((a, b) => a.rank - b.rank)
+  const playerEntries = entries
+    .filter((e) => slugify(e.player) === name)
+    .sort((a, b) => a.rank - b.rank)
 
   if (!playerEntries.length) notFound()
 
+  const player = playerEntries[0].player
   const scores = computeGameScores(entries)
-  const found = { player, entries: playerEntries }
 
   return (
     <main style={{ minHeight: "100vh", padding: "48px" }}>
@@ -31,13 +33,13 @@ export default async function PlayerPage({ params }: Props) {
             Profil joueur
           </p>
           <h1 style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.8rem, 3vw, 2.8rem)", fontWeight: 700, color: "var(--color-text)", marginBottom: "32px", lineHeight: 1.1 }}>
-            {found.player}
+            {player}
           </h1>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px" }}>
             {[
-              { label: "Jeux classés", value: found.entries.length },
-              { label: "Top 1 obtenus", value: found.entries.filter((e) => e.rank === 1).length },
+              { label: "Jeux classés", value: playerEntries.length },
+              { label: "Top 1 obtenus", value: playerEntries.filter((e) => e.rank === 1).length },
             ].map((stat) => (
               <div key={stat.label} style={{ background: "var(--color-card-bg)", border: "1px solid var(--color-border)", padding: "20px 24px" }}>
                 <p style={{ fontSize: "11px", color: "var(--color-label)", marginBottom: "8px" }}>{stat.label}</p>
@@ -49,7 +51,7 @@ export default async function PlayerPage({ params }: Props) {
 
         <div className="fade-up" style={{ animationDelay: "100ms" }}>
           <p style={{ fontSize: "12px", color: "var(--color-label)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "12px" }}>
-            Top {found.entries.length} personnel
+            Top {playerEntries.length} personnel
           </p>
 
           <div style={{ border: "1px solid var(--color-border)" }}>
@@ -59,7 +61,7 @@ export default async function PlayerPage({ params }: Props) {
               <span style={{ fontSize: "11px", color: "var(--color-label)", textTransform: "uppercase", letterSpacing: "0.08em", textAlign: "right" }}>Rng global</span>
             </div>
 
-            {found.entries.map((e) => {
+            {playerEntries.map((e) => {
               const idx = scores.findIndex((s) => s.game === e.game)
               const globalRank = idx !== -1 ? idx + 1 : null
 
@@ -72,7 +74,7 @@ export default async function PlayerPage({ params }: Props) {
                     #{e.rank}
                   </span>
                   <Link
-                    href={`/games/${encodeURIComponent(e.game)}`}
+                    href={`/games/${slugify(e.game)}`}
                     style={{ fontSize: "14px", color: "var(--color-text)", textDecoration: "none", fontWeight: 500, paddingRight: "16px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
                   >
                     {e.game}

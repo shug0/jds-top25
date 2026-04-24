@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { GameScore } from "@/lib/types"
+import { slugify } from "@/lib/utils"
 
 type Props = { scores: GameScore[] }
 
@@ -27,7 +28,7 @@ function Stat({ label, value, valueSize }: { label: string; value: number; value
 
 function HeroCard({ score }: { score: GameScore }) {
   return (
-    <Link href={`/games/${encodeURIComponent(score.game)}`} className="game-card flex flex-col justify-between h-full" style={s.card("24px 28px")}>
+    <Link href={`/games/${slugify(score.game)}`} className="game-card flex flex-col justify-between h-full" style={s.card("24px 28px")}>
       <div style={s.titleRow}>
         <h2 className="font-bold leading-none" style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.8rem, 2.8vw, 2.6rem)", color: "var(--color-text)" }}>
           {score.game}
@@ -45,7 +46,7 @@ function HeroCard({ score }: { score: GameScore }) {
 
 function SideCard({ score, rank }: { score: GameScore; rank: number }) {
   return (
-    <Link href={`/games/${encodeURIComponent(score.game)}`} className="game-card flex flex-col justify-between h-full" style={s.card("20px 24px")}>
+    <Link href={`/games/${slugify(score.game)}`} className="game-card flex flex-col justify-between h-full" style={s.card("20px 24px")}>
       <div style={s.titleRow}>
         <h3 className="font-bold leading-tight" style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.3rem, 1.8vw, 1.7rem)", color: "var(--color-text)" }}>
           {score.game}
@@ -63,7 +64,7 @@ function SideCard({ score, rank }: { score: GameScore; rank: number }) {
 
 function SmallCard({ score, rank }: { score: GameScore; rank: number }) {
   return (
-    <Link href={`/games/${encodeURIComponent(score.game)}`} className="game-card flex flex-col justify-between h-full" style={s.card("16px 20px")}>
+    <Link href={`/games/${slugify(score.game)}`} className="game-card flex flex-col justify-between h-full" style={s.card("16px 20px")}>
       <div style={s.titleRow}>
         <h3 className="font-semibold leading-tight" style={{ fontFamily: "var(--font-sans)", fontSize: "1.2rem", color: "var(--color-text)" }}>
           {score.game}
@@ -80,7 +81,7 @@ function SmallCard({ score, rank }: { score: GameScore; rank: number }) {
 
 function TinyCard({ score, rank }: { score: GameScore; rank: number }) {
   return (
-    <Link href={`/games/${encodeURIComponent(score.game)}`} className="game-card flex items-center justify-between h-full" style={s.card("10px 14px")}>
+    <Link href={`/games/${slugify(score.game)}`} className="game-card flex items-center justify-between h-full" style={s.card("10px 14px")}>
       <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0 }}>
         <p style={{ ...s.rank, fontSize: "0.95rem", flexShrink: 0 }}>#{rank}</p>
         <h3 className="font-medium leading-tight" style={{ fontFamily: "var(--font-sans)", fontSize: "0.95rem", color: "var(--color-text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>

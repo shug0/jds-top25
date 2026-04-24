@@ -2,26 +2,27 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getEntries } from "@/lib/sheets"
 import { computeGameScores } from "@/lib/scoring"
+import { slugify } from "@/lib/utils"
 
 export async function generateStaticParams() {
   const entries = await getEntries()
   const scores = computeGameScores(entries)
-  return scores.map((s) => ({ slug: s.game }))
+  return scores.map((s) => ({ slug: slugify(s.game) }))
 }
 
 type Props = { params: Promise<{ slug: string }> }
 
 export default async function GamePage({ params }: Props) {
   const { slug } = await params
-  const game = decodeURIComponent(slug)
 
   const entries = await getEntries()
   const scores = computeGameScores(entries)
-  const globalRankIdx = scores.findIndex((s) => s.game === game)
+  const globalRankIdx = scores.findIndex((s) => slugify(s.game) === slug)
 
   if (globalRankIdx === -1) notFound()
 
   const score = scores[globalRankIdx]
+  const game = score.game
   const globalRank = globalRankIdx + 1
   const gameEntries = entries
     .filter((e) => e.game === game)
@@ -71,7 +72,7 @@ export default async function GamePage({ params }: Props) {
                   {group.players.map((e, idx) => (
                     <Link
                       key={`${group.label}-${e.player}-${e.rank}-${idx}`}
-                      href={`/players/${encodeURIComponent(e.player)}`}
+                      href={`/players/${slugify(e.player)}`}
                       className="game-card"
                       style={{ padding: "6px 12px", background: "var(--color-card-bg)", border: "1px solid var(--color-border)", textDecoration: "none", fontSize: "13px", fontWeight: 500, color: "var(--color-text)" }}
                     >
