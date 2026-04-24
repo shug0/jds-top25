@@ -64,9 +64,9 @@ export default async function GamePage({ params }: Props) {
                   </p>
                 </div>
                 <div className="game-player-tags">
-                  {group.players.map((e) => (
+                  {group.players.map((e, idx) => (
                     <Link
-                      key={`${group.label}-${e.player}`}
+                      key={`${group.label}-${e.player}-${e.rank}-${idx}`}
                       href={`/players/${encodeURIComponent(e.player)}`}
                       className="game-card"
                       style={{ padding: "6px 12px", background: "var(--color-card-bg)", border: "1px solid var(--color-border)", textDecoration: "none", fontSize: "13px", fontWeight: 500, color: "var(--color-text)" }}
