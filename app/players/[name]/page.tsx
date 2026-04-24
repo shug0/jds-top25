@@ -7,12 +7,6 @@ export const revalidate = 86400
 
 type Props = { params: Promise<{ name: string }> }
 
-export async function generateStaticParams() {
-  const entries = await getEntries()
-  const players = [...new Set(entries.map((e) => e.player))]
-  return players.map((player) => ({ name: encodeURIComponent(player) }))
-}
-
 export default async function PlayerPage({ params }: Props) {
   const { name } = await params
   const player = decodeURIComponent(name)

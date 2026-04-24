@@ -2,7 +2,7 @@ import { getEntries } from "@/lib/sheets"
 import { computeGameScores } from "@/lib/scoring"
 import { MasonryGrid } from "@/components/masonry-grid"
 
-export const revalidate = 3600
+export const revalidate = 86400
 
 export default async function HomePage() {
   const entries = await getEntries()

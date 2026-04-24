@@ -7,12 +7,6 @@ export const revalidate = 86400
 
 type Props = { params: Promise<{ slug: string }> }
 
-export async function generateStaticParams() {
-  const entries = await getEntries()
-  const games = [...new Set(entries.map((e) => e.game))]
-  return games.map((game) => ({ slug: encodeURIComponent(game) }))
-}
-
 export default async function GamePage({ params }: Props) {
   const { slug } = await params
   const game = decodeURIComponent(slug)
