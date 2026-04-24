@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { getEntries, REVALIDATE } from "@/lib/sheets"
+import { getEntries } from "@/lib/sheets"
 import { getPlayerTops } from "@/lib/scoring"
 
-export const revalidate = REVALIDATE
+export const revalidate = 3600
 
 export default async function PlayersPage() {
   const entries = await getEntries()

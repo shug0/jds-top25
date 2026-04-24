@@ -1,8 +1,8 @@
-import { getEntries, REVALIDATE } from "@/lib/sheets"
+import { getEntries } from "@/lib/sheets"
 import { computeGameScores } from "@/lib/scoring"
 import { MasonryGrid } from "@/components/masonry-grid"
 
-export const revalidate = REVALIDATE
+export const revalidate = 3600
 
 export default async function HomePage() {
   const entries = await getEntries()

@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getEntries, REVALIDATE } from "@/lib/sheets"
+import { getEntries } from "@/lib/sheets"
 import { computeGameScores } from "@/lib/scoring"
 
-export const revalidate = REVALIDATE
+export const revalidate = 3600
 
 type Props = { params: Promise<{ name: string }> }
 
