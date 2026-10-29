@@ -1,0 +1,16 @@
+// Worker Cloudflare qui sert l'app Next.js construite par l'adaptateur OpenNext (.open-next/).
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "jds-top25",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "kv_namespaces": [
+    { "binding": "NEXT_INC_CACHE_KV", "id": "94d667da8e5846f5b1a292c0db4b5919" }
+  ],
+  "routes": [{ "pattern": "top25.needacoffee.fr", "custom_domain": true }]
+}
