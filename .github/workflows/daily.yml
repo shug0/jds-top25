@@ -1,0 +1,51 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.sheet.outputs.changed }}
+    steps:
+      - name: Compare the Sheet with the deployed site
+        id: sheet
+        env:
+          # Même URL que scripts/fetch-sheet.mjs.
+          CSV_URL: https://docs.google.com/spreadsheets/d/1R8g89H3iePN92_vHiKWS3DHgqxllHy06G2sHitbXVIo/export?format=csv&gid=224056819
+        run: |
+          sheet=$(curl -fsSL "$CSV_URL" | sha256sum | cut -d' ' -f1)
+          live=$(curl -fsS https://top25.needacoffee.fr/sheet.sha256 || true)
+          if [ "$sheet" = "$live" ]; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+
+  # Un push déploie toujours, le cron et le lancement manuel seulement si le Sheet a changé.
+  deploy:
+    needs: check
+    if: github.event_name == 'push' || needs.check.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm exec wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
