@@ -1,7 +1,7 @@
-import Papa from "papaparse"
 import { cacheLife } from "next/cache"
-import type { RawEntry, Entry } from "./types"
+import Papa from "papaparse"
 import { buildFuseIndex, normalizeTitle } from "./fuzzy"
+import type { Entry, RawEntry } from "./types"
 
 const SHEET_ID = "1R8g89H3iePN92_vHiKWS3DHgqxllHy06G2sHitbXVIo"
 const TIDY_GID = "224056819"

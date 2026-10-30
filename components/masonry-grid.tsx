@@ -106,14 +106,34 @@ export function MasonryGrid({ scores }: Props) {
         </div>
 
         <div className="masonry-col-2">
-          {second && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(1) }}><SideCard score={second} rank={2} /></div>}
-          {third && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(2) }}><SideCard score={third} rank={3} /></div>}
+          {second && (
+            <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(1) }}>
+              <SideCard score={second} rank={2} />
+            </div>
+          )}
+          {third && (
+            <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(2) }}>
+              <SideCard score={third} rank={3} />
+            </div>
+          )}
         </div>
 
         <div className="masonry-col-3">
-          {fourth && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(3) }}><SideCard score={fourth} rank={4} /></div>}
-          {fifth && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(4) }}><SideCard score={fifth} rank={5} /></div>}
-          {sixth && <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(5) }}><SideCard score={sixth} rank={6} /></div>}
+          {fourth && (
+            <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(3) }}>
+              <SideCard score={fourth} rank={4} />
+            </div>
+          )}
+          {fifth && (
+            <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(4) }}>
+              <SideCard score={fifth} rank={5} />
+            </div>
+          )}
+          {sixth && (
+            <div className="fade-up" style={{ ...s.border, flex: 1, ...delay(5) }}>
+              <SideCard score={sixth} rank={6} />
+            </div>
+          )}
         </div>
       </div>
 

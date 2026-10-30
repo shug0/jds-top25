@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { getEntries } from "@/lib/sheets"
 import { getPlayerTops } from "@/lib/scoring"
+import { getEntries } from "@/lib/sheets"
 import { slugify } from "@/lib/utils"
 
 export default async function PlayersPage() {
@@ -11,12 +11,8 @@ export default async function PlayersPage() {
     <main style={{ minHeight: "100vh", padding: "48px" }}>
       <div style={{ maxWidth: "720px", margin: "0 auto" }}>
         <div style={{ marginBottom: "40px" }} className="fade-up">
-          <p style={{ fontSize: "12px", color: "var(--color-label)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>
-            {players.length} participants
-          </p>
-          <h1 style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.8rem, 3vw, 2.8rem)", fontWeight: 700, color: "var(--color-text)", lineHeight: 1.1 }}>
-            Joueurs
-          </h1>
+          <p style={{ fontSize: "12px", color: "var(--color-label)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "10px" }}>{players.length} participants</p>
+          <h1 style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.8rem, 3vw, 2.8rem)", fontWeight: 700, color: "var(--color-text)", lineHeight: 1.1 }}>Joueurs</h1>
         </div>
 
         <div className="fade-up" style={{ animationDelay: "80ms", border: "1px solid var(--color-border)" }}>

@@ -1,6 +1,6 @@
-import { getEntries } from "@/lib/sheets"
-import { computeGameScores } from "@/lib/scoring"
 import { MasonryGrid } from "@/components/masonry-grid"
+import { computeGameScores } from "@/lib/scoring"
+import { getEntries } from "@/lib/sheets"
 
 export default async function HomePage() {
   const entries = await getEntries()
@@ -21,17 +21,12 @@ export default async function HomePage() {
           style={{ textDecoration: "underline", textUnderlineOffset: "2px", color: "var(--color-text-muted)" }}
         >
           Google Sheets communautaire
-        </a>
-        {" "}· Par la commu de{" "}
-        <a
-          href="https://www.youtube.com/@FirstPlayerFr"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ textDecoration: "underline", textUnderlineOffset: "2px", color: "var(--color-text-muted)" }}
-        >
+        </a>{" "}
+        · Par la commu de{" "}
+        <a href="https://www.youtube.com/@FirstPlayerFr" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", textUnderlineOffset: "2px", color: "var(--color-text-muted)" }}>
           First Player
-        </a>
-        {" "}· Rafraîchi tous les jours
+        </a>{" "}
+        · Rafraîchi tous les jours
       </footer>
     </main>
   )
