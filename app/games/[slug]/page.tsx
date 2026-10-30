@@ -4,6 +4,8 @@ import { computeGameScores } from "@/lib/scoring"
 import { getEntries } from "@/lib/sheets"
 import { slugify } from "@/lib/utils"
 
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const entries = await getEntries()
   const scores = computeGameScores(entries)

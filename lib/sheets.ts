@@ -1,19 +1,11 @@
-import { cacheLife } from "next/cache"
+import { readFile } from "node:fs/promises"
 import Papa from "papaparse"
 import { buildFuseIndex, normalizeTitle } from "./fuzzy"
 import type { Entry, RawEntry } from "./types"
 
-const SHEET_ID = "1R8g89H3iePN92_vHiKWS3DHgqxllHy06G2sHitbXVIo"
-const TIDY_GID = "224056819"
-
-const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${TIDY_GID}`
-
-export const REVALIDATE = 86400
-
-async function fetchCsv(): Promise<RawEntry[]> {
-  const res = await fetch(CSV_URL, { next: { revalidate: REVALIDATE } })
-  if (!res.ok) throw new Error(`Failed to fetch sheet: ${res.status}`)
-  const text = await res.text()
+// Écrit par scripts/fetch-sheet.mjs, lancé avant `next build` et `next dev`.
+async function readCsv(): Promise<RawEntry[]> {
+  const text = await readFile(".sheet/sheet.csv", "utf8")
 
   const { data } = Papa.parse<RawEntry>(text, {
     header: true,
@@ -24,11 +16,8 @@ async function fetchCsv(): Promise<RawEntry[]> {
   return data
 }
 
-export async function getEntries(): Promise<Entry[]> {
-  "use cache"
-  cacheLife("days")
-
-  const raw = await fetchCsv()
+async function loadEntries(): Promise<Entry[]> {
+  const raw = await readCsv()
 
   const rawTitles = raw.flatMap((r) => (r.titre_jeu?.trim() ? [r.titre_jeu.trim()] : []))
   buildFuseIndex(rawTitles)
@@ -46,4 +35,12 @@ export async function getEntries(): Promise<Entry[]> {
       } satisfies Entry
     })
     .filter((e): e is Entry => e !== null)
+}
+
+// Chaque page du build appelle getEntries : le CSV n'est lu et indexé qu'une fois par processus.
+let entries: Promise<Entry[]> | undefined
+
+export function getEntries(): Promise<Entry[]> {
+  entries ??= loadEntries()
+  return entries
 }

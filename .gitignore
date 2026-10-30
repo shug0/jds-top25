@@ -40,6 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# OpenNext
-.open-next
+# Cloudflare
 .wrangler
+
+# Google Sheet téléchargé au build (scripts/fetch-sheet.mjs)
+/.sheet/
+/public/sheet.sha256
