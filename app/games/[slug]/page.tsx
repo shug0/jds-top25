@@ -67,6 +67,7 @@ export default async function GamePage({ params }: Props) {
                   <div className="game-player-tags">
                     {group.players.map((e, idx) => (
                       <Link
+                        // biome-ignore lint/suspicious/noArrayIndexKey: the sheet can list the same game twice for one player, and this server-rendered list never reorders
                         key={`${group.label}-${e.player}-${e.rank}-${idx}`}
                         href={`/players/${slugify(e.player)}`}
                         className="game-card"
