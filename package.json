@@ -2,6 +2,7 @@
   "name": "top-25",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.23.0",
   "scripts": {
     "dev": "node scripts/fetch-sheet.mjs && next dev",
     "build": "node scripts/fetch-sheet.mjs && next build",
